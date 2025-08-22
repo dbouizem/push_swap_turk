@@ -1,0 +1,29 @@
+# --- OS / éditeurs ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+*.tmp
+*.bak
+.vscode/
+.idea/
+*.iml
+*.code-workspace
+
+# --- Dossiers de build fréquents ---
+build/
+build-*/
+cmake-build-*/
+bin/
+lib/
+
+# --- Fichiers objets & intermediaires ---
+*.o
+*.obj
+*.lo
+*.la
+*.lai
+
+# --- En-têtes précompilés ---
+*.gch
+*.pch
