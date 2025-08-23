@@ -43,19 +43,8 @@ int	is_full(t_stack *stack)
 	return (stack->size >= stack->capacity);
 }
 
-/* void	push_to_stack(t_stack *stack, int value)
-{
-	if (!stack || is_full(stack))
-		error_exit();
-	stack->data[stack->size] = value;
-	stack->size++;
-} */
-
-// Le checker n'a PAS besoin de sort_small_stack
-// Cette fonction ne devrait jamais être appelée dans le checker
 void	sort_small_stack(t_stack *a, t_stack *b)
 {
 	(void)a;
 	(void)b;
-	// Ne fait rien - le checker ne trie pas, il vérifie seulement
 }

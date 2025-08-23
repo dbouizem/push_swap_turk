@@ -1,52 +1,50 @@
 #include "../push_swap.h"
 
-void	execute_optimal_moves(t_stack *a, t_stack *b, t_cost cost)
+static void	execute_remaining_moves(t_stack *a, t_stack *b, t_cost *moves)
 {
-	// CrÃ©er des copies locales pour Ã©viter de modifier la structure originale
-	int	ra_moves = cost.ra_count;
-	int	rra_moves = cost.rra_count;
-	int	rb_moves = cost.rb_count;
-	int	rrb_moves = cost.rrb_count;
-
-	// Phase 1: Rotations simultanÃ©es normales (rr)
-	while (ra_moves > 0 && rb_moves > 0)
-	{
-		rr(a, b);
-		ra_moves--;
-		rb_moves--;
-	}
-
-	// Phase 2: Rotations simultanÃ©es inverses (rrr)
-	while (rra_moves > 0 && rrb_moves > 0)
-	{
-		rrr(a, b);
-		rra_moves--;
-		rrb_moves--;
-	}
-
-	// Phase 3: Rotations restantes pour la pile A
-	while (ra_moves > 0)
+	while (moves->ra_count > 0)
 	{
 		ra(a);
-		ra_moves--;
+		moves->ra_count--;
 	}
-	while (rra_moves > 0)
+	while (moves->rra_count > 0)
 	{
 		rra(a);
-		rra_moves--;
+		moves->rra_count--;
 	}
-
-	// Phase 4: Rotations restantes pour la pile B
-	while (rb_moves > 0)
+	while (moves->rb_count > 0)
 	{
 		rb(b);
-		rb_moves--;
+		moves->rb_count--;
 	}
-	while (rrb_moves > 0)
+	while (moves->rrb_count > 0)
 	{
 		rrb(b);
-		rrb_moves--;
+		moves->rrb_count--;
 	}
+}
+
+void	execute_optimal_moves(t_stack *a, t_stack *b, t_cost cost)
+{
+	t_cost	moves;
+
+	moves.ra_count = cost.ra_count;
+	moves.rra_count = cost.rra_count;
+	moves.rb_count = cost.rb_count;
+	moves.rrb_count = cost.rrb_count;
+	while (moves.ra_count > 0 && moves.rb_count > 0)
+	{
+		rr(a, b);
+		moves.ra_count--;
+		moves.rb_count--;
+	}
+	while (moves.rra_count > 0 && moves.rrb_count > 0)
+	{
+		rrr(a, b);
+		moves.rra_count--;
+		moves.rrb_count--;
+	}
+	execute_remaining_moves(a, b, &moves);
 }
 
 void	bring_min_to_top(t_stack *a)
@@ -59,17 +57,13 @@ void	bring_min_to_top(t_stack *a)
 
 	min_val = find_min(a);
 	min_pos = find_position(min_val, a);
-
-	// Choisir la rotation la plus efficace
 	if (min_pos <= a->size / 2)
 	{
-		// Rotation normale plus efficace
 		while (a->data[0] != min_val)
 			ra(a);
 	}
 	else
 	{
-		// Rotation inverse plus efficace
 		while (a->data[0] != min_val)
 			rra(a);
 	}

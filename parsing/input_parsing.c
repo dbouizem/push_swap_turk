@@ -13,10 +13,9 @@ t_stack	*parse_single_string(char *str)
 	char	**numbers;
 	t_stack	*stack;
 	int		count;
-	int		i;
 
 	if (!str || !*str)
-		exit (0);
+		exit(0);
 	numbers = ft_split(str, ' ');
 	if (!numbers)
 		error_exit();
@@ -28,30 +27,10 @@ t_stack	*parse_single_string(char *str)
 		ft_free_split(numbers);
 		exit(0);
 	}
-	stack = create_stack(count);
+	stack = create_and_fill_stack(numbers, count);
 	if (!stack)
-	{
-		ft_free_split(numbers);
-		error_exit();
-	}
-	i = 0;
-	while (numbers[i])
-	{
-		if (!is_valid_number(numbers[i]))
-		{
-			free_stack(stack);
-			ft_free_split(numbers);
-			error_exit();
-		}
-		push_to_stack(stack, (int)ft_atol_safe(numbers[i]));
-		i++;
-	}
+		cleanup_parse_and_exit(NULL, numbers);
 	ft_free_split(numbers);
-	if (has_duplicates(stack))
-	{
-		free_stack(stack);
-		error_exit();
-	}
 	return (stack);
 }
 

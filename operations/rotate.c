@@ -1,68 +1,37 @@
 #include "../push_swap.h"
 
-void	ra(t_stack *a)
+static void	rotate_stack(t_stack *stack)
 {
 	int	temp;
 	int	i;
 
-	if (a->size < 2)
+	if (stack->size < 2)
 		return ;
-	temp = a->data[0];
+	temp = stack->data[0];
 	i = 0;
-	while (i < a->size - 1)
+	while (i < stack->size - 1)
 	{
-		a->data[i] = a->data[i + 1];
+		stack->data[i] = stack->data[i + 1];
 		i++;
 	}
-	a->data[a->size - 1] = temp;
+	stack->data[stack->size - 1] = temp;
+}
 
+void	ra(t_stack *a)
+{
+	rotate_stack(a);
 	ft_putstr_fd("ra\n", 1);
 }
 
 void	rb(t_stack *b)
 {
-	int	temp;
-	int	i;
-
-	if (b->size < 2)
-		return ;
-	temp = b->data[0];
-	i = 0;
-	while (i < b->size - 1)
-	{
-		b->data[i] = b->data[i + 1];
-		i++;
-	}
-	b->data[b->size - 1] = temp;
+	rotate_stack(b);
 	ft_putstr_fd("rb\n", 1);
 }
 
 void	rr(t_stack *a, t_stack *b)
 {
-	int	temp;
-	int	i;
-
-	if (a->size >= 2)
-	{
-		temp = a->data[0];
-		i = 0;
-		while (i < a->size - 1)
-		{
-			a->data[i] = a->data[i + 1];
-			i++;
-		}
-		a->data[a->size - 1] = temp;
-	}
-	if (b->size >= 2)
-	{
-		temp = b->data[0];
-		i = 0;
-		while (i < b->size - 1)
-		{
-			b->data[i] = b->data[i + 1];
-			i++;
-		}
-		b->data[b->size - 1] = temp;
-	}
+	rotate_stack(a);
+	rotate_stack(b);
 	ft_putstr_fd("rr\n", 1);
 }

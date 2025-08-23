@@ -73,6 +73,8 @@ void	cleanup_and_exit(t_stack *a, t_stack *b);
 /* Parsing utils */
 void	ft_free_split(char **split);
 int		validate_input_format(char *str);
+void	cleanup_parse_and_exit(t_stack *stack, char **numbers);
+t_stack	*create_and_fill_stack(char **numbers, int count);
 
 /* Cost_utils */
 t_cost	find_cheapest_element_b_to_a(t_stack *a, t_stack *b);

@@ -2,10 +2,14 @@
 
 int	min_value(int a, int b)
 {
-	return (a < b ? a : b);
+	if (a < b)
+		return (a);
+	return (b);
 }
 
 int	abs_value(int n)
 {
-	return (n < 0 ? -n : n);
+	if (n < 0)
+		return (-n);
+	return (n);
 }

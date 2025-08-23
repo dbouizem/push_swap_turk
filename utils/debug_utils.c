@@ -3,14 +3,14 @@
 
 void	print_stack(t_stack *stack, char name)
 {
-	int i;
+	int	i;
 
 	if (!stack)
 	{
 		ft_putstr_fd("Stack ", 2);
 		ft_putchar_fd(name, 2);
 		ft_putstr_fd(": NULL\n", 2);
-		return;
+		return ;
 	}
 
 	ft_putstr_fd("Stack ", 2);

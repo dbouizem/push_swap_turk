@@ -1,74 +1,84 @@
-
 #include "../push_swap.h"
 
-// Version simple de get_next_line pour le checker
-char	*get_next_line(int fd)
+static char	*read_line_content(int fd, char *line)
 {
-	char		*line;
-	char		c;
-	int			i;
-	int			bytes_read;
-
-	if (fd < 0)
-		return (NULL);
-
-	line = malloc(1000);
-	if (!line)
-		return (NULL);
+	char	c;
+	int		i;
+	int		bytes_read;
 
 	i = 0;
-	while ((bytes_read = read(fd, &c, 1)) > 0)
+	bytes_read = read(fd, &c, 1);
+	while (bytes_read > 0)
 	{
 		if (c == '\n')
-			break;
+			break ;
 		if (i < 999)
 			line[i++] = c;
+		bytes_read = read(fd, &c, 1);
 	}
-
 	line[i] = '\0';
-
 	if (bytes_read <= 0 && i == 0)
 	{
 		free(line);
 		return (NULL);
 	}
-
 	return (line);
 }
 
-char	*clean_instruction(char *instruction)
+char	*get_next_line(int fd)
+{
+	char	*line;
+
+	if (fd < 0)
+		return (NULL);
+	line = malloc(1000);
+	if (!line)
+		return (NULL);
+	return (read_line_content(fd, line));
+}
+
+static void	trim_trailing_spaces(char *instruction)
 {
 	int	len;
 	int	i;
 
 	if (!instruction)
-		return (NULL);
-
+		return ;
 	len = ft_strlen(instruction);
-
-	// Enlever les caractères de fin de ligne
-	for (i = len - 1; i >= 0; i--)
+	i = len - 1;
+	while (i >= 0)
 	{
-		if (instruction[i] == '\n' || instruction[i] == '\r' ||
-			instruction[i] == ' ' || instruction[i] == '\t')
+		if (instruction[i] == '\n' || instruction[i] == '\r'
+			|| instruction[i] == ' ' || instruction[i] == '\t')
 			instruction[i] = '\0';
 		else
-			break;
+			break ;
+		i--;
 	}
+}
 
-	// Enlever les espaces au début
+static void	trim_leading_spaces(char *instruction)
+{
+	int	i;
+	int	j;
+
 	i = 0;
 	while (instruction[i] && (instruction[i] == ' ' || instruction[i] == '\t'))
 		i++;
-
-	// Si on a des espaces au début, décaler le contenu
 	if (i > 0)
 	{
-		int j = 0;
+		j = 0;
 		while (instruction[i])
 			instruction[j++] = instruction[i++];
 		instruction[j] = '\0';
 	}
+}
 
+char	*clean_instruction(char *instruction)
+{
+	if (!instruction)
+		return (NULL);
+	trim_trailing_spaces(instruction);
+	trim_leading_spaces(instruction);
 	return (instruction);
 }
