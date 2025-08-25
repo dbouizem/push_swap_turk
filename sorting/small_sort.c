@@ -8,26 +8,6 @@ void	sort_two(t_stack *a)
 		sa(a);
 }
 
-static void	sort_three_operations(t_stack *a, int first, int second, int third)
-{
-	if (first > second && second < third && first < third)
-		sa(a);
-	else if (first < second && second > third && first < third)
-	{
-		rra(a);
-		sa(a);
-	}
-	else if (first > second && second < third && first > third)
-		ra(a);
-	else if (first < second && second > third && first > third)
-		rra(a);
-	else if (first > second && second > third && first > third)
-	{
-		sa(a);
-		rra(a);
-	}
-}
-
 void	sort_three(t_stack *a)
 {
 	int	first;
@@ -66,4 +46,47 @@ void	sort_four(t_stack *a, t_stack *b)
 	pb(a, b);
 	sort_three(a);
 	pa(a, b);
+}
+
+void	sort_five(t_stack *a, t_stack *b)
+{
+	int	moves;
+	int	min_val;
+
+	if (a->size != 5)
+		return ;
+	while (a->size > 3)
+	{
+		min_val = find_min(a);
+		moves = find_position(min_val, a);
+		if (moves <= a->size / 2)
+		{
+			while (moves-- > 0)
+				ra(a);
+		}
+		else
+		{
+			moves = a->size - moves;
+			while (moves-- > 0)
+				rra(a);
+		}
+		pb(a, b);
+	}
+	sort_three(a);
+	while (b->size > 0)
+		pa(a, b);
+}
+
+void	sort_small_stack(t_stack *a, t_stack *b)
+{
+	if (!a || is_sorted(a))
+		return ;
+	if (a->size == 2)
+		sort_two(a);
+	else if (a->size == 3)
+		sort_three(a);
+	else if (a->size == 4)
+		sort_four(a, b);
+	else if (a->size == 5)
+		sort_five(a, b);
 }

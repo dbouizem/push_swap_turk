@@ -1,20 +1,22 @@
 #include "../push_swap.h"
 
-static char	*read_line_content(int fd, char *line)
+char	*read_line_from_stdin(void)
 {
-	char	c;
+	char	*line;
+	char	buffer;
 	int		i;
 	int		bytes_read;
 
+	line = malloc(1000);
+	if (!line)
+		return (NULL);
 	i = 0;
-	bytes_read = read(fd, &c, 1);
-	while (bytes_read > 0)
+	bytes_read = read(0, &buffer, 1);
+	while (bytes_read > 0 && buffer != '\n')
 	{
-		if (c == '\n')
-			break ;
 		if (i < 999)
-			line[i++] = c;
-		bytes_read = read(fd, &c, 1);
+			line[i++] = buffer;
+		bytes_read = read(0, &buffer, 1);
 	}
 	line[i] = '\0';
 	if (bytes_read <= 0 && i == 0)
@@ -25,43 +27,22 @@ static char	*read_line_content(int fd, char *line)
 	return (line);
 }
 
-char	*get_next_line(int fd)
-{
-	char	*line;
-
-	if (fd < 0)
-		return (NULL);
-	line = malloc(1000);
-	if (!line)
-		return (NULL);
-	return (read_line_content(fd, line));
-}
-
-static void	trim_trailing_spaces(char *instruction)
+char	*clean_instruction(char *instruction)
 {
 	int	len;
 	int	i;
-
-	if (!instruction)
-		return ;
-	len = ft_strlen(instruction);
-	i = len - 1;
-	while (i >= 0)
-	{
-		if (instruction[i] == '\n' || instruction[i] == '\r'
-			|| instruction[i] == ' ' || instruction[i] == '\t')
-			instruction[i] = '\0';
-		else
-			break ;
-		i--;
-	}
-}
-
-static void	trim_leading_spaces(char *instruction)
-{
-	int	i;
 	int	j;
 
+	if (!instruction)
+		return (NULL);
+	len = ft_strlen(instruction);
+	i = len - 1;
+	while (i >= 0 && (instruction[i] == '\n' || instruction[i] == '\r'
+			|| instruction[i] == ' ' || instruction[i] == '\t'))
+	{
+		instruction[i] = '\0';
+		i--;
+	}
 	i = 0;
 	while (instruction[i] && (instruction[i] == ' ' || instruction[i] == '\t'))
 		i++;
@@ -72,13 +53,5 @@ static void	trim_leading_spaces(char *instruction)
 			instruction[j++] = instruction[i++];
 		instruction[j] = '\0';
 	}
-}
-
-char	*clean_instruction(char *instruction)
-{
-	if (!instruction)
-		return (NULL);
-	trim_trailing_spaces(instruction);
-	trim_leading_spaces(instruction);
 	return (instruction);
 }

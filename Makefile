@@ -1,5 +1,3 @@
-# ================================ VARIABLES ================================= #
-
 NAME = push_swap
 BONUS_NAME = checker
 
@@ -7,17 +5,11 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I. -I libft
 
-# ================================== LIBFT =================================== #
-
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# ============================== AJOUT : OBJ DIR ============================== #
 OBJ_DIR = obj
 
-# ================================= SOURCES ================================== #
-
-# Sources pour push_swap
 SRCS =	main.c \
 		parsing/input_parsing.c \
 		parsing/input_validation.c \
@@ -29,7 +21,6 @@ SRCS =	main.c \
 		operations/rotate_silent.c \
 		operations/combined_silent.c \
 		sorting/small_sort.c \
-		sorting/medium_sort.c \
 		sorting/turk_algorithm.c \
 		sorting/cost_calculation.c \
 		sorting/movement_execution.c \
@@ -39,9 +30,10 @@ SRCS =	main.c \
 		utils/math_utils.c \
 		utils/error_utils.c \
 		utils/parsing_utils.c \
-		utils/cost_utils.c
+		utils/sorting_utils.c \
+		utils/cost_utils.c \
+		utils/debug_utils.c
 
-# Sources pour checker (bonus)
 BONUS_SRCS = bonus/checker_bonus.c \
 			bonus/operation_bonus.c \
 			bonus/checker_utils_bonus.c \
@@ -55,13 +47,10 @@ BONUS_SRCS = bonus/checker_bonus.c \
 			utils/validation_utils.c \
 			utils/math_utils.c \
 			utils/error_utils.c \
-			bonus/stack_utils_bonus.c
+			utils/stack_utils.c
 
-# MODIFICATION : Objets dans obj/
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 BONUS_OBJS = $(BONUS_SRCS:%.c=$(OBJ_DIR)/%.o)
-
-# ================================== RULES =================================== #
 
 all: $(LIBFT) $(NAME)
 
@@ -73,12 +62,10 @@ bonus: $(LIBFT) $(BONUS_NAME)
 $(BONUS_NAME): $(BONUS_OBJS)
 	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
 
-# MODIFICATION : Nouvelle règle pour créer .o dans obj/
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# MODIFICATION : Clean supprime obj/
 clean:
 	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) clean

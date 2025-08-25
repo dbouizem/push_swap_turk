@@ -7,9 +7,7 @@
 # include <limits.h>
 # include "libft/libft.h"
 
-/* ========================================================================== */
-/*                                STRUCTURES                                  */
-/* ========================================================================== */
+/* ================ STRUCTURES ===============*/
 
 typedef struct s_stack
 {
@@ -28,9 +26,7 @@ typedef struct s_cost
 	int	element_index;
 }	t_cost;
 
-/* ========================================================================== */
-/*                             STACK MANAGEMENT                               */
-/* ========================================================================== */
+/* ================ STACK MANAGEMENT =============== */
 
 t_stack	*create_stack(int capacity);
 void	free_stack(t_stack *stack);
@@ -38,9 +34,8 @@ int		is_empty(t_stack *stack);
 int		is_full(t_stack *stack);
 void	push_to_stack(t_stack *stack, int value);
 
-/* ========================================================================== */
-/*                           PARSING & VALIDATION                             */
-/* ========================================================================== */
+
+/* ============== PARSING & VALIDATION =============== */
 
 t_stack	*parse_arguments(int ac, char **av);
 t_stack	*parse_single_string(char *str);
@@ -48,9 +43,7 @@ int		is_valid_number(char *str);
 long	ft_atol_safe(char *str);
 int		has_duplicates(t_stack *stack);
 
-/* ========================================================================== */
-/*                              UTILITY FUNCTIONS                             */
-/* ========================================================================== */
+/* ============== UTILITY FUNCTIONS ================ */
 
 /* Position utils */
 int		find_min(t_stack *stack);
@@ -76,6 +69,9 @@ int		validate_input_format(char *str);
 void	cleanup_parse_and_exit(t_stack *stack, char **numbers);
 t_stack	*create_and_fill_stack(char **numbers, int count);
 
+/* Sorting utils */
+void	sort_three_operations(t_stack *a, int first, int second, int third);
+
 /* Cost_utils */
 t_cost	find_cheapest_element_b_to_a(t_stack *a, t_stack *b);
 
@@ -83,10 +79,11 @@ t_cost	find_cheapest_element_b_to_a(t_stack *a, t_stack *b);
 t_stack	*create_stack(int capacity);
 void	free_stack(t_stack *stack);
 
+/* Debug utils  */
+void	print_stack(t_stack *stack, char name);
+void	print_both_stacks(t_stack *a, t_stack *b);
 
-/* ========================================================================== */
-/*                              OPERATIONS                                    */
-/* ========================================================================== */
+/* =================== OPERATIONS =================== */
 
 /* Swap operations */
 void	sa(t_stack *a);
@@ -120,9 +117,7 @@ void	rra_silent(t_stack *a);
 void	rrb_silent(t_stack *b);
 void	rrr_silent(t_stack *a, t_stack *b);
 
-/* ========================================================================== */
-/*                           MAIN ALGORITHM FUNCTIONS                         */
-/* ========================================================================== */
+/* ============== MAIN ALGORITHM FUNCTIONS =============== */
 
 void	push_swap(t_stack *a, t_stack *b);
 void	turk_algorithm(t_stack *a, t_stack *b);
@@ -134,38 +129,24 @@ void	sort_four(t_stack *a, t_stack *b);
 void	sort_five(t_stack *a, t_stack *b);
 void	sort_small_stack(t_stack *a, t_stack *b);
 
-/* ========================================================================== */
-/*                             COST CALCULATION                               */
-/* ========================================================================== */
+/* ================ COST CALCULATION ===================== */
 
 t_cost	calculate_cost_a_to_b(int pos_a, int value, t_stack *a, t_stack *b);
 t_cost	calculate_cost_b_to_a(int pos_b, int value, t_stack *a, t_stack *b);
 t_cost	find_cheapest_element_a_to_b(t_stack *a, t_stack *b);
 t_cost	find_cheapest_element_b_to_a(t_stack *a, t_stack *b);
 
-/* ========================================================================== */
-/*                            MOVEMENT EXECUTION                              */
-/* ========================================================================== */
+/* =============== MOVEMENT EXECUTION ================= */
 
 void	execute_optimal_moves(t_stack *a, t_stack *b, t_cost cost);
 void	bring_min_to_top(t_stack *a);
 
-/* ========================================================================== */
-/*                             CHECKER (BONUS)                                */
-/* ========================================================================== */
+/* ================ CHECKER (BONUS) ================ */
 
-// Fonctions principales du checker
 int		execute_instruction_silent(char *instruction, t_stack *a, t_stack *b);
-char	*get_next_line(int fd);
-int		checker_main(int ac, char **av);
 
-// Fonctions utilitaires bonus
-int		is_valid_instruction(char *instruction);
+// utils bonus
+char	*read_line_from_stdin(void);
 char	*clean_instruction(char *instruction);
-void	process_instructions_gnl(t_stack *a, t_stack *b);
 
-
-// Dans la section des fonctions utilitaires
-void	print_stack(t_stack *stack, char name);
-void	print_both_stacks(t_stack *a, t_stack *b);
 #endif

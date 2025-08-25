@@ -25,13 +25,3 @@ void	turk_algorithm(t_stack *a, t_stack *b)
 	}
 	bring_min_to_top(a);
 }
-
-void	push_swap(t_stack *a, t_stack *b)
-{
-	if (!a || a->size <= 1 || is_sorted(a))
-		return ;
-	if (a->size <= 5)
-		sort_small_stack(a, b);
-	else
-		turk_algorithm(a, b);
-}

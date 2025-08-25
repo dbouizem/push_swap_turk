@@ -69,7 +69,7 @@ t_stack	*parse_multiple_args(int ac, char **av)
 t_stack	*parse_arguments(int ac, char **av)
 {
 	if (ac == 1)
-		exit(0);
+		return (NULL);
 	if (ac == 2)
 		return (parse_single_string(av[1]));
 	return (parse_multiple_args(ac, av));

@@ -1,35 +1,9 @@
 #include "../push_swap.h"
 
-static char	*read_line_from_stdin(void)
-{
-	char	*line;
-	char	buffer;
-	int		i;
-	int		bytes_read;
-
-	line = malloc(1000);
-	if (!line)
-		return (NULL);
-	i = 0;
-	bytes_read = read(0, &buffer, 1);
-	while (bytes_read > 0 && buffer != '\n')
-	{
-		if (i < 999)
-			line[i++] = buffer;
-		bytes_read = read(0, &buffer, 1);
-	}
-	line[i] = '\0';
-	if (bytes_read <= 0 && i == 0)
-	{
-		free(line);
-		return (NULL);
-	}
-	return (line);
-}
-
 static void	handle_instruction_error(char *instruction, t_stack *a, t_stack *b)
 {
-	free(instruction);
+	if (instruction)
+		free(instruction);
 	ft_putstr_fd("Error\n", 2);
 	free_stack(a);
 	free_stack(b);
@@ -65,7 +39,7 @@ static void	print_result(t_stack *a, t_stack *b)
 		ft_putstr_fd("KO\n", 1);
 }
 
-int	checker_main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_stack	*a;
 	t_stack	*b;
@@ -89,9 +63,4 @@ int	checker_main(int ac, char **av)
 	free_stack(a);
 	free_stack(b);
 	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	return (checker_main(ac, av));
 }

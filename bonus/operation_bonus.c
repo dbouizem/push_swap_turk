@@ -1,6 +1,6 @@
 #include "../push_swap.h"
 
-static int	ft_strcmp_local(const char *s1, const char *s2)
+static int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	len1;
 	size_t	len2;
@@ -20,15 +20,15 @@ static int	ft_strcmp_local(const char *s1, const char *s2)
 
 static int	execute_basic_ops(char *instruction, t_stack *a, t_stack *b)
 {
-	if (ft_strcmp_local(instruction, "sa") == 0)
+	if (ft_strcmp(instruction, "sa") == 0)
 		sa_silent(a);
-	else if (ft_strcmp_local(instruction, "sb") == 0)
+	else if (ft_strcmp(instruction, "sb") == 0)
 		sb_silent(b);
-	else if (ft_strcmp_local(instruction, "ss") == 0)
+	else if (ft_strcmp(instruction, "ss") == 0)
 		ss_silent(a, b);
-	else if (ft_strcmp_local(instruction, "pa") == 0)
+	else if (ft_strcmp(instruction, "pa") == 0)
 		pa_silent(a, b);
-	else if (ft_strcmp_local(instruction, "pb") == 0)
+	else if (ft_strcmp(instruction, "pb") == 0)
 		pb_silent(a, b);
 	else
 		return (0);
@@ -37,17 +37,17 @@ static int	execute_basic_ops(char *instruction, t_stack *a, t_stack *b)
 
 static int	execute_rotate_ops(char *instruction, t_stack *a, t_stack *b)
 {
-	if (ft_strcmp_local(instruction, "ra") == 0)
+	if (ft_strcmp(instruction, "ra") == 0)
 		ra_silent(a);
-	else if (ft_strcmp_local(instruction, "rb") == 0)
+	else if (ft_strcmp(instruction, "rb") == 0)
 		rb_silent(b);
-	else if (ft_strcmp_local(instruction, "rr") == 0)
+	else if (ft_strcmp(instruction, "rr") == 0)
 		rr_silent(a, b);
-	else if (ft_strcmp_local(instruction, "rra") == 0)
+	else if (ft_strcmp(instruction, "rra") == 0)
 		rra_silent(a);
-	else if (ft_strcmp_local(instruction, "rrb") == 0)
+	else if (ft_strcmp(instruction, "rrb") == 0)
 		rrb_silent(b);
-	else if (ft_strcmp_local(instruction, "rrr") == 0)
+	else if (ft_strcmp(instruction, "rrr") == 0)
 		rrr_silent(a, b);
 	else
 		return (0);
