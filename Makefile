@@ -10,7 +10,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 OBJ_DIR = obj
 
-SRCS =	main.c \
+SRCS =	push_swap.c \
 		parsing/input_parsing.c \
 		parsing/input_validation.c \
 		operations/swap.c \

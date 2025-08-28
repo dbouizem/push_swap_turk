@@ -1,4 +1,3 @@
-
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -40,7 +39,7 @@ void	push_to_stack(t_stack *stack, int value);
 t_stack	*parse_arguments(int ac, char **av);
 t_stack	*parse_single_string(char *str);
 int		is_valid_number(char *str);
-long	ft_atol_safe(char *str);
+long	ft_atol(char *str);
 int		has_duplicates(t_stack *stack);
 
 /* ============== UTILITY FUNCTIONS ================ */
@@ -68,6 +67,9 @@ void	ft_free_split(char **split);
 int		validate_input_format(char *str);
 void	cleanup_parse_and_exit(t_stack *stack, char **numbers);
 t_stack	*create_and_fill_stack(char **numbers, int count);
+int		is_only_spaces(char *str);
+int		validate_and_convert(char *str, int *result);
+
 
 /* Sorting utils */
 void	sort_three_operations(t_stack *a, int first, int second, int third);

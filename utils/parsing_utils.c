@@ -15,24 +15,33 @@ void	ft_free_split(char **split)
 	free(split);
 }
 
-int	validate_input_format(char *str)
+int	is_only_spaces(char *str)
 {
 	int	i;
-	int	has_digit;
 
-	if (!str || !*str)
-		return (0);
+	if (!str)
+		return (1);
 	i = 0;
-	has_digit = 0;
 	while (str[i])
 	{
-		if (str[i] >= '0' && str[i] <= '9')
-			has_digit = 1;
-		else if (str[i] != ' ' && str[i] != '+' && str[i] != '-')
+		if (str[i] != ' ' && str[i] != '\t' && str[i] != '\n' && str[i] != '\r')
 			return (0);
 		i++;
 	}
-	return (has_digit);
+	return (1);
+}
+
+int	validate_and_convert(char *str, int *result)
+{
+	long	value;
+
+	if (!is_valid_number(str))
+		return (0);
+	value = ft_atol(str);
+	if (value == LONG_MIN)
+		return (0);
+	*result = (int)value;
+	return (1);
 }
 
 void	cleanup_parse_and_exit(t_stack *stack, char **numbers)
@@ -47,6 +56,7 @@ void	cleanup_parse_and_exit(t_stack *stack, char **numbers)
 t_stack	*create_and_fill_stack(char **numbers, int count)
 {
 	t_stack	*stack;
+	int		converted_value;
 	int		i;
 
 	stack = create_stack(count);
@@ -55,12 +65,12 @@ t_stack	*create_and_fill_stack(char **numbers, int count)
 	i = 0;
 	while (numbers[i])
 	{
-		if (!is_valid_number(numbers[i]))
+		if (!validate_and_convert(numbers[i], &converted_value))
 		{
 			free_stack(stack);
 			return (NULL);
 		}
-		push_to_stack(stack, (int)ft_atol_safe(numbers[i]));
+		push_to_stack(stack, converted_value);
 		i++;
 	}
 	if (has_duplicates(stack))

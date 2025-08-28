@@ -43,3 +43,10 @@ int	is_full(t_stack *stack)
 	return (stack->size >= stack->capacity);
 }
 
+void	push_to_stack(t_stack *stack, int value)
+{
+	if (!stack || is_full(stack))
+		error_exit();
+	stack->data[stack->size] = value;
+	stack->size++;
+}

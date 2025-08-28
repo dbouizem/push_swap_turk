@@ -1,21 +1,13 @@
 #include "../push_swap.h"
 
-void	push_to_stack(t_stack *stack, int value)
-{
-	if (!stack || is_full(stack))
-		error_exit();
-	stack->data[stack->size] = value;
-	stack->size++;
-}
-
 t_stack	*parse_single_string(char *str)
 {
 	char	**numbers;
 	t_stack	*stack;
 	int		count;
 
-	if (!str || !*str)
-		exit(0);
+	if (!str || !*str || is_only_spaces(str))
+		error_exit();
 	numbers = ft_split(str, ' ');
 	if (!numbers)
 		error_exit();
@@ -25,7 +17,7 @@ t_stack	*parse_single_string(char *str)
 	if (count == 0)
 	{
 		ft_free_split(numbers);
-		exit(0);
+		error_exit();
 	}
 	stack = create_and_fill_stack(numbers, count);
 	if (!stack)
@@ -34,14 +26,21 @@ t_stack	*parse_single_string(char *str)
 	return (stack);
 }
 
-static void	validate_and_push(t_stack *stack, char *arg)
+static void	validate_and_add_arg(t_stack *stack, char *arg)
 {
-	if (!is_valid_number(arg))
+	int	converted_value;
+
+	if (!arg || !*arg || is_only_spaces(arg))
 	{
 		free_stack(stack);
 		error_exit();
 	}
-	push_to_stack(stack, (int)ft_atol_safe(arg));
+	if (!validate_and_convert(arg, &converted_value))
+	{
+		free_stack(stack);
+		error_exit();
+	}
+	push_to_stack(stack, converted_value);
 }
 
 t_stack	*parse_multiple_args(int ac, char **av)
@@ -55,7 +54,7 @@ t_stack	*parse_multiple_args(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		validate_and_push(stack, av[i]);
+		validate_and_add_arg(stack, av[i]);
 		i++;
 	}
 	if (has_duplicates(stack))

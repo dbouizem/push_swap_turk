@@ -20,17 +20,17 @@ int	is_valid_number(char *str)
 	return (1);
 }
 
-long	ft_atol_safe(char *str)
+long	ft_atol(char *str)
 {
 	long	result;
 	int		sign;
 	int		i;
 
-	if (!str)
-		return (0);
 	result = 0;
 	sign = 1;
 	i = 0;
+	if (!str)
+		return (LONG_MIN);
 	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
@@ -40,8 +40,10 @@ long	ft_atol_safe(char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + (str[i] - '0');
-		if (result * sign > INT_MAX || result * sign < INT_MIN)
-			error_exit();
+		if (sign == 1 && result > INT_MAX)
+			return (LONG_MIN);
+		if (sign == -1 && result > (long)INT_MAX + 1)
+			return (LONG_MIN);
 		i++;
 	}
 	return (result * sign);
@@ -67,34 +69,4 @@ int	has_duplicates(t_stack *stack)
 		i++;
 	}
 	return (0);
-}
-
-static int	is_space_char(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\r');
-}
-
-int	count_valid_numbers(char *str)
-{
-	int	count;
-	int	in_number;
-	int	i;
-
-	if (!str)
-		return (0);
-	count = 0;
-	in_number = 0;
-	i = 0;
-	while (str[i])
-	{
-		if (!is_space_char(str[i]) && !in_number)
-		{
-			in_number = 1;
-			count++;
-		}
-		else if (is_space_char(str[i]))
-			in_number = 0;
-		i++;
-	}
-	return (count);
 }
