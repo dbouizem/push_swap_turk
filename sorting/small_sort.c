@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   small_sort.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 void	sort_two(t_stack *a)
@@ -31,7 +43,6 @@ void	sort_four(t_stack *a, t_stack *b)
 
 	if (a->size != 4)
 		return ;
-
 	min_val = find_min(a);
 	min_pos = find_position(min_val, a);
 	if (min_pos == 1)

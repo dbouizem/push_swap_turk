@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -32,7 +44,6 @@ void	free_stack(t_stack *stack);
 int		is_empty(t_stack *stack);
 int		is_full(t_stack *stack);
 void	push_to_stack(t_stack *stack, int value);
-
 
 /* ============== PARSING & VALIDATION =============== */
 
@@ -69,7 +80,6 @@ void	cleanup_parse_and_exit(t_stack *stack, char **numbers);
 t_stack	*create_and_fill_stack(char **numbers, int count);
 int		is_only_spaces(char *str);
 int		validate_and_convert(char *str, int *result);
-
 
 /* Sorting utils */
 void	sort_three_operations(t_stack *a, int first, int second, int third);

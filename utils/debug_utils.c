@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   debug_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -12,11 +23,9 @@ void	print_stack(t_stack *stack, char name)
 		ft_putstr_fd(": NULL\n", 2);
 		return ;
 	}
-
 	ft_putstr_fd("Stack ", 2);
 	ft_putchar_fd(name, 2);
 	ft_putstr_fd(": [", 2);
-
 	i = 0;
 	while (i < stack->size)
 	{

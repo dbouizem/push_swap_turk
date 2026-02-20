@@ -4,9 +4,11 @@ BONUS_NAME = checker
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I. -I libft
+RM = rm -rf
 
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
+MAKE_LIBFT = $(MAKE) --no-print-directory -C $(LIBFT_DIR)
 
 OBJ_DIR = obj
 
@@ -52,30 +54,39 @@ BONUS_SRCS = bonus/checker_bonus.c \
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 BONUS_OBJS = $(BONUS_SRCS:%.c=$(OBJ_DIR)/%.o)
 
+# Colors
+GREEN = \033[0;32m
+CYAN = \033[0;36m
+RESET = \033[0m
+
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)✓ $(NAME) ready$(RESET)"
 
 bonus: $(LIBFT) $(BONUS_NAME)
 
 $(BONUS_NAME): $(BONUS_OBJS)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
+	@$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) -o $(BONUS_NAME)
+	@echo "$(GREEN)✓ $(BONUS_NAME) ready$(RESET)"
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-	rm -rf $(OBJ_DIR)
-	$(MAKE) -C $(LIBFT_DIR) clean
+	@$(RM) $(OBJ_DIR)
+	@$(MAKE_LIBFT) clean
+	@echo "$(CYAN)clean done$(RESET)"
 
 fclean: clean
-	rm -f $(NAME) $(BONUS_NAME)
-	$(MAKE) -C $(LIBFT_DIR) fclean
+	@rm -f $(NAME) $(BONUS_NAME)
+	@$(MAKE_LIBFT) fclean
+	@echo "$(CYAN)fclean done$(RESET)"
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR)
+	@$(MAKE_LIBFT)
 
 re: fclean all
 

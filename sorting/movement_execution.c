@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movement_execution.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 static void	execute_remaining_moves(t_stack *a, t_stack *b, t_cost *moves)
@@ -54,7 +66,6 @@ void	bring_min_to_top(t_stack *a)
 
 	if (is_empty(a))
 		return ;
-
 	min_val = find_min(a);
 	min_pos = find_position(min_val, a);
 	if (min_pos <= a->size / 2)

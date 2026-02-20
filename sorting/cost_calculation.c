@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cost_calculation.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 static void	move_counts_a_to_b(t_cost *cost, int pos_a, int target_pos_b,

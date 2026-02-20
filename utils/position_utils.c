@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   position_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dbouizem <djihane.bouizem@gmail.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/20 00:00:00 by dbouizem          #+#    #+#             */
+/*   Updated: 2026/02/20 00:00:00 by dbouizem         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../push_swap.h"
 
 int	find_position(int value, t_stack *stack)
@@ -37,7 +49,6 @@ int	find_target_position_in_a(int value, t_stack *a)
 	}
 	if (a->data[a->size - 1] < value && value < a->data[0])
 		return (0);
-
 	return (0);
 }
 
@@ -60,10 +71,8 @@ int	find_target_position_in_b(int value, t_stack *b)
 			return (i + 1);
 		i++;
 	}
-
 	if (b->data[b->size - 1] > value && value > b->data[0])
 		return (0);
-
 	return (0);
 }
 
